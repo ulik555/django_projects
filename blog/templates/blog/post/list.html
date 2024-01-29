@@ -1,0 +1,40 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+<!--тег extends сообщает Django, что надо наследовать от шаблона blog/base.html -->
+
+{% block title %}My blog{% endblock %}
+
+{% block content %}
+<h1>My blog</h1>
+
+	{% if tag %}
+		<h2>Post tagged with '{{ tag.name }}'</h2>
+	{% endif %}
+
+	{% for post in posts %}
+	<h2>
+		<!--  -->
+		<a href='{{ post.get_absolute_url }}'>
+			{{ post.title }}
+		</a>
+	</h2>
+	<p class="tags">
+		Tags:
+		{% for tag in post.tags.all %}
+			<a href="{% url 'blog:post_list_by_tag' tag.slug %}">
+			{{ tag.name }}
+			</a>
+			{% if not forloop.last %}, {% endif %}
+		{% endfor %}
+
+	</p>
+	<p class="date">Published {{ post.publish }} by {{ post.author }}</p>
+	{% comment %} truncatewords усекает значение до 30 {% endcomment %}
+	{{ post.body|markdown|truncatewords_html:30 }}
+	{% comment %} linebreaks конвертирует результат в разрывы строк в формате HTML {% endcomment %}
+	{% endfor %}
+	<!-- Шаблонный тег include загружает данный шаблон и прорисовывает его с использованием текущего контекста шаблона. Ключевое слово with используется для того, чтобы передавать дополнительные контекстные переменные в шаблон.
+	Для прорисовки в шаблоне постраничной разбивки
+	используется переменная page, при этом объект Page, который мы передаем из представления в шаблон, называется posts.-->
+	{% include 'pagination.html' with page=posts %}
+{% endblock %}

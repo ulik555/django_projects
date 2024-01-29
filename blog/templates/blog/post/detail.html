@@ -1,0 +1,50 @@
+{% extends "blog/base.html" %}
+{% load blog_tags %}
+{% comment %} для детальной инфы о посте {% endcomment %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+	<h1>{{ post.title }}</h1>
+	<p class="date">
+		Published {{ post.publish }} by {{ post.author }}
+	</p>
+{{ post.body|markdown }}
+<p>
+	<!-- добавлена ссылка на URL-адрес post_share -->
+	<a href="{% url 'blog:post_share' post.id %}">
+		Поделиться этим постом
+	</a>
+</p>
+<!--  -->
+	<h2>Похожие сообщения</h2>
+
+	{% for post in similar_posts %}
+	<p>
+		<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+	</p>
+	{% empty %}
+	Подобных постов пока нет.
+	{% endfor %}
+
+
+	{% with comments.count as total_comments %}
+	<h2>
+<!-- фильтр pluralize, чтобы отображать суффикс множественного числа для слова comment -->
+		{{ total_comments }} comment {{ total_comments|pluralize}}
+	</h2>
+	{% endwith %}
+<!-- прокручивать комментарии к посту в цикле -->
+{% for comment in comments %}
+	<div class="comment">
+		<p class="info">
+			Комментарий {{ forloop.counter }} от {{ comment.name }}
+			{{ comment.created }}
+		</p>
+		{{ comment.body|linebreaks}}
+	</div>
+	<!--Если список комментариев пуст,  -->
+	{% empty %}
+		<p>Нет комментариев.</p>
+{% endfor %}
+	{% include 'blog/post/includes/comment_form.html' %}
+{% endblock %}
