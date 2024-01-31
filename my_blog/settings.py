@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#+g871i=%8t9he^tjsl!2_!n=2jrx5wjqdsb&5yobuj!-6w@=_'
+SECRET_KEY = '********'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# '192.168.0.17', python3 manage.py runserver 192.168.0.17:8000
+
 ALLOWED_HOSTS = []
 
 SITE_ID = 1
@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blog',
-        'USER': 'blog',
-        'PASSWORD': 'Desantura',
+        'NAME': '******',
+        'USER': '****',
+        'PASSWORD': '******',
         'HOST': 'localhost' ,  # либо № порта
     }
 }
@@ -139,14 +139,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Конфигурация сервера электронной почты
 EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_HOST_USER = 'ulik345@yandex.ru'
-EMAIL_HOST_PASSWORD = 'vfmfnnlasftwzksi'
+EMAIL_HOST_USER = '*******ru'
+EMAIL_HOST_PASSWORD = '****'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # SERVER_EMAIL = EMAIL_HOST_USER
-# EMAIL_ADMIN = ['test_2000_test00@mail.ru']
+# EMAIL_ADMIN = ['test****']
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
